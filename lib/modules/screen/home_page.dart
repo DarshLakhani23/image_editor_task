@@ -145,6 +145,8 @@ class HomePage extends StatelessWidget {
           child: GestureDetector(
             onTap: () {
               homeController.imagePath.value = "";
+              homeController.selectedIndex.value = 10000000;
+              homeController.newTextEditingController.clear();
             },
             child: Container(
               decoration: BoxDecoration(
@@ -188,7 +190,7 @@ class NHomePage extends StatelessWidget {
                 width: MediaQuery.of(context).size.height / 2,
                 child: Stack(
                   children: [
-                    for (var index = 1; index < homeController.newTextEditingController.length; index++)
+                    for (var index = 0; index < homeController.newTextEditingController.length; index++)
                       Obx(
                         () => Positioned(
                           left: homeController.offSetList[index].dx,
@@ -201,22 +203,6 @@ class NHomePage extends StatelessWidget {
                             },
                             onTap: () {
                               homeController.selectedIndex.value = index;
-                            },
-                            onLongPress: () async {
-                              await addTextDialog(
-                                message: AppString.addText,
-                                updateButton: () {
-                                  homeController.text.value = homeController.textEditingController.text;
-                                  homeController.newTextEditingController.add(
-                                    TextEditingController(
-                                      text: homeController.text.value,
-                                    ),
-                                  );
-                                  Get.back();
-                                  homeController.textEditingController.clear();
-                                },
-                                textEditingController: homeController.textEditingController,
-                              );
                             },
                             child: Container(
                               decoration: BoxDecoration(
