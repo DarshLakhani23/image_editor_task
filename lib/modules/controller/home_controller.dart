@@ -88,7 +88,7 @@ class HomeController extends GetxController {
 
           imagePath.value = "";
           newTextEditingController.clear();
-          selectedIndex.value = -1;
+
           AppSnackBar.showErrorSnackBar(
             message: AppString.imageMsg,
             title: AppString.imageSaved,

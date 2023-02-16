@@ -19,6 +19,9 @@ class HomePage extends StatelessWidget {
   final HomeController homeController = Get.put(HomeController());
 
   /// screenshotSaver
+  api() async {
+    homeController.selectedIndex.value = 10000000;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,15 +38,18 @@ class HomePage extends StatelessWidget {
           Padding(
             padding: EdgeInsets.symmetric(vertical: SizeUtils.horizontalBlockSize * 3),
             child: CustomButton(
-              onTap: () {
-                if (homeController.imagePath.value.isEmpty) {
-                  AppSnackBar.showErrorSnackBar(
-                    message: AppString.error,
-                    title: AppString.pleaseSelectedImage,
-                  );
-                } else {
-                  homeController.screenshotSaver(context: context);
-                }
+              onTap: () async {
+                await api();
+                Future.delayed(const Duration(milliseconds: 500)).then((value) {
+                  if (homeController.imagePath.value.isEmpty) {
+                    AppSnackBar.showErrorSnackBar(
+                      message: AppString.error,
+                      title: AppString.pleaseSelectedImage,
+                    );
+                  } else {
+                    homeController.screenshotSaver(context: context);
+                  }
+                });
               },
               text: AppString.save,
               buttonColor: AppColors.white,
